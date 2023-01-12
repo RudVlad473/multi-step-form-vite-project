@@ -1,0 +1,50 @@
+@use "../../../stylesheets/abstracts/" as *;
+@use "../../Stepper/Stepper.module.scss" as s;
+
+.wrapper {
+  display: grid;
+  grid-template-areas:
+    "label error"
+    "input input";
+  gap: s.$padding * 0.5 s.$padding;
+}
+
+.input {
+  grid-area: input;
+
+  border: 1px solid $gray-300;
+  border-radius: s.$border-radius * 0.5;
+  outline: none;
+
+  font-weight: $bold;
+  color: $blue-400;
+
+  padding: s.$padding * 0.75 s.$padding;
+
+  &:focus {
+    border-color: $blue-400;
+  }
+
+  &::placeholder {
+    opacity: 0.35;
+  }
+
+  &--error {
+    border-color: $red-100;
+  }
+}
+
+.label {
+  grid-area: label;
+
+  opacity: 0.9;
+}
+
+.error-msg {
+  grid-area: error;
+
+  justify-self: end;
+
+  font-weight: $bold;
+  color: $red-100;
+}

@@ -1,0 +1,27 @@
+@use "./stylesheets/abstracts/" as *;
+@use "./components/Stepper/Stepper.module.scss" as s;
+
+.main-form {
+  // display: inline-flex;
+  // place-content: center;
+  //gap: 1em;
+  display: grid;
+  grid-template-areas: "stepper step-form";
+  grid-template-columns: auto 644.683px;
+
+  margin: 0 auto;
+
+  // position: absolute;
+  // left: 50%;
+  // top: 50%;
+  // transform: translate(-50%, -50%);
+
+  background-color: $white;
+
+  // max-width: 1000px;
+  // min-width: 300px;
+
+  border-radius: s.$border-radius;
+
+  padding: s.$padding;
+}
