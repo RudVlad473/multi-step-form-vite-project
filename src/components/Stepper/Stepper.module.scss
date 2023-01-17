@@ -21,7 +21,7 @@ $index-radius: calc($index-border-width + 30px + $padding * 0.5);
   width: 274px;
   height: 568px;
 
-  padding: $padding * 2;
+  padding: $padding * 3 $padding * 2;
 
   color: $gray-200;
 
@@ -73,6 +73,14 @@ $index-radius: calc($index-border-width + 30px + $padding * 0.5);
   user-select: none;
 
   font-weight: $bolder;
+
+  &--error {
+    background-color: $red-100;
+  }
+
+  &--unsteppable {
+    opacity: 0.5;
+  }
 }
 
 .subheader {
@@ -81,13 +89,14 @@ $index-radius: calc($index-border-width + 30px + $padding * 0.5);
   opacity: 0.5;
 
   font-weight: $bold;
-  white-space: nowrap;
+ 
 }
 
 .header {
   grid-area: header;
 
   font-weight: $bolder;
+  //font-size: 1rem;
+ // color: $gray-300;
 
-  white-space: nowrap;
 }

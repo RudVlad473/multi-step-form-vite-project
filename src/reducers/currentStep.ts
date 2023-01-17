@@ -1,4 +1,5 @@
 import { StepPhase } from "../components/StepForm/StepForm"
+import { getCurrentStepPhase } from "../utils/getCurrentStepPhase"
 import { stepsCount } from "./../App"
 
 export type CurrentStep = {
@@ -19,31 +20,30 @@ export interface StepDescription {
 }
 
 function currentStepReducer(
-  { stepIndex, stepPhase }: CurrentStep,
+  { stepIndex }: CurrentStep,
   { type, payload: stepTo }: CurrentStepAction
 ): CurrentStep {
+  const stepPhase = getCurrentStepPhase( {stepIndex},
+     {type, payload} )
+
   switch (type) {
     case "NEXT": {
-      if (stepIndex === stepsCount - 1) {
-        throw new Error("You can go no further")
+      // if (stepIndex === stepsCount - 1) {
+      //   throw new Error("You can go no further")
+      // }
+      return {
+        stepIndex: stepIndex + 1,
+        stepPhase,
       }
-
-      const newStepPhase: StepPhase =
-        stepIndex === stepsCount - 2 ? "LAST" : "IN_BETWEEN"
-      return { stepIndex: stepIndex + 1, stepPhase: newStepPhase }
     }
     case "PREV": {
-      const newStepPhase: StepPhase = stepIndex === 1 ? "FIRST" : "IN_BETWEEN"
-      return { stepIndex: stepIndex - 1, stepPhase: newStepPhase }
+      return {
+        stepIndex: stepIndex - 1,
+        stepPhase,
+      }
     }
     case "MOVE_TO": {
-      const newStepPhase: StepPhase =
-      stepTo === 0
-          ? "FIRST"
-          : stepTo === stepsCount - 1
-          ? "LAST"
-          : "IN_BETWEEN"
-      return { stepIndex: stepTo as number, stepPhase: newStepPhase }
+      return { stepIndex: stepTo as number, stepPhase }
     }
   }
 }

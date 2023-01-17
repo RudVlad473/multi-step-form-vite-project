@@ -2,61 +2,37 @@
 @use "../Stepper/Stepper.module.scss" as s;
 
 .step-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
   grid-area: step-form;
+
+  display: grid;
+  grid-template-areas:
+    "header"
+    "form"
+    "nav";
+  grid-template-rows: max-content auto max-content;
+  gap: s.$padding * 3;
+  
 
   padding: 2em 6em;
 }
 
 .header {
   font-weight: $bolder;
-  font-size: 1.75rem;
+  font-size: 2rem;
 }
 
 .subheader {
-  @extend s, .subheader !optional;
-}
-
-.footer {
-  display: grid;
-  grid-template-areas: "first-btn second-btn";
-}
-
-.nav-btn {
-  font-weight: $bolder;
-
-  padding: 0.75em 1.25em;
-
-  width: fit-content;
-
-  border: none;
-}
-
-.go-back-btn {
-  grid-area: first-btn;
-
-  @extend .nav-btn;
-
-  justify-self: start;
-
-  background-color: $white;
-
   color: $gray-400;
 }
 
-.next-btn {
-  grid-area: second-btn;
+.header-wrapper {
+  grid-area: header;
 
-  @extend .nav-btn;
+  display: flex;
+  flex-direction: column;
+  gap: s.$padding;
+}
 
-  justify-self: end;
-
-  background-color: $blue-400;
-
-  color: $gray-300;
-
-  border-radius: s.$border-radius * 0.5;
+.form {
+  grid-area: form;
 }

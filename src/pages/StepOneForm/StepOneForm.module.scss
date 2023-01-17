@@ -1,0 +1,7 @@
+@use "../../components/Stepper/Stepper.module.scss" as s;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: s.$padding;
+}

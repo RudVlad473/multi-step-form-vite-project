@@ -1,0 +1,19 @@
+@use "../../stylesheets/abstracts/" as *;
+@use "../../components/Stepper/Stepper.module.scss" as s;
+
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: s.$padding * 2;
+}
+
+.header {
+  font-size: 2rem;
+  font-weight: $bolder;
+}
+
+.article {
+  text-align: center;
+}

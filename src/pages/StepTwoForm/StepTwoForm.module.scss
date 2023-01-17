@@ -1,0 +1,4 @@
+@use "../StepOneForm/StepOneForm.module.scss" as s1;
+.form {
+  @extend s1, .form !optional;
+}

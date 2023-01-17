@@ -1,6 +1,34 @@
 @use "../../../stylesheets/abstracts/" as *;
 @use "../../Stepper/Stepper.module.scss" as s;
 
+.base-control {
+  border: 1px solid $gray-300;
+  border-radius: s.$border-radius * 0.5;
+  outline: none;
+
+  padding: s.$padding * 0.75 s.$padding;
+
+  transition: all 0.1s ease-in;
+
+  &:focus {
+    @extend .base-control--focused;
+  }
+
+  &__header {
+    font-weight: $bold;
+  }
+
+  &__footer {
+    font-weight: $bold;
+    font-size: 0.9rem;
+    color: $gray-400;
+  }
+}
+
+.base-control--focused {
+  border-color: $blue-300;
+}
+
 .wrapper {
   display: grid;
   grid-template-areas:
@@ -12,18 +40,10 @@
 .input {
   grid-area: input;
 
-  border: 1px solid $gray-300;
-  border-radius: s.$border-radius * 0.5;
-  outline: none;
+  @extend .base-control;
 
   font-weight: $bold;
   color: $blue-400;
-
-  padding: s.$padding * 0.75 s.$padding;
-
-  &:focus {
-    border-color: $blue-400;
-  }
 
   &::placeholder {
     opacity: 0.35;

@@ -2,13 +2,10 @@
 @use "./components/Stepper/Stepper.module.scss" as s;
 
 .main-form {
-  // display: inline-flex;
-  // place-content: center;
-  //gap: 1em;
   display: grid;
   grid-template-areas: "stepper step-form";
   grid-template-columns: auto 644.683px;
-
+  //644px ~ 40.2926875vw
   margin: 0 auto;
 
   // position: absolute;

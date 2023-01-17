@@ -1,0 +1,12 @@
+@use "../../../stylesheets/abstracts/" as *;
+@use "../../Stepper/Stepper.module.scss" as s;
+@use "../InputWithLabel/InputWithLabel.module.scss" as i;
+
+.plates {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: start;
+  gap: s.$padding;
+}
+
+

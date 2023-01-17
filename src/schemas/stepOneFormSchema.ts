@@ -1,20 +1,22 @@
 import { object, SchemaOf, string } from "yup"
-import { FormsData } from "./../App"
 
 const minNameLen = 3
 
 const ValidationMessages = {
   NAME: `Your name is too short. Min length: ${minNameLen}`,
   EMAIL: "This is not a valid email",
-  PHONE_NUMBER: "This is not a valid phone number",
+  PHONE_NUMBER: {
+    SHORT: "This phone number is too short",
+    INVALID: "This is not a valid phone number",
+  },
   REQUIRED: "This field is required",
 }
 
-// export interface Type {
-//   type: keyof FormsData
+// export interface DiscriminatedType {
+//   type: StepType
 // }
 
-export interface IStepOneForm  {
+export interface IStepOneForm {
   name: string
   email: string
   phoneNumber: string
@@ -28,8 +30,11 @@ const stepOneFormSchema: SchemaOf<IStepOneForm> = object().shape({
     .email(ValidationMessages.EMAIL)
     .required(ValidationMessages.REQUIRED),
   phoneNumber: string()
-    .min(5, ValidationMessages.PHONE_NUMBER)
-    .matches(/^[a-zA-Z0-9\-().\s]{10,15}$/, ValidationMessages.PHONE_NUMBER)
+    .min(5, ValidationMessages.PHONE_NUMBER.SHORT)
+    .matches(
+      /^[a-zA-Z0-9\-().\s]{10,15}$/,
+      ValidationMessages.PHONE_NUMBER.INVALID
+    )
     .required(ValidationMessages.REQUIRED),
 })
 

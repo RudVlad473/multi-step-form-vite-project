@@ -1,0 +1,45 @@
+@use "../../../stylesheets/abstracts/" as *;
+@use "../../Stepper/Stepper.module.scss" as s;
+@use "../InputWithLabel/InputWithLabel.module.scss" as i;
+
+.addon {
+  display: grid;
+  grid-template-areas:
+    "checkbox header aside"
+    "checkbox footer aside";
+  grid-template-columns: 1.25em 1fr auto;
+  align-items: center;
+  gap: s.$padding * 0.5 s.$padding * 1.5;
+
+  padding: s.$padding;
+
+  @extend i, .base-control !optional;
+
+  &:hover {
+    @extend i, .base-control--focused !optional;
+  }
+}
+.addon--selected {
+  @extend i, .base-control--focused !optional;
+  background-color: $gray-200;
+}
+
+.header {
+  grid-area: header;
+
+  @extend i, .base-control__header !optional;
+}
+
+.footer {
+  grid-area: footer;
+
+  @extend i, .base-control__footer !optional;
+}
+
+.aside {
+  grid-area: aside;
+
+  font-weight: $bold;
+  font-size: 0.9rem;
+  color: $blue-300;
+}

@@ -1,6 +1,7 @@
+@use "../../../stylesheets/abstracts/" as *;
 @use "../../Stepper/Stepper.module.scss" as s;
 
-.form  {
+.addons-list {
   display: flex;
   flex-direction: column;
   gap: s.$padding;

@@ -1,0 +1,28 @@
+@use "../../../stylesheets/abstracts/" as *;
+@use "../../Stepper/Stepper.module.scss" as s;
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: s.$padding * 1.5;
+
+  background-color: $gray-100;
+
+  padding: s.$padding;
+  border-radius: s.$border-radius;
+}
+
+.label {
+  font-weight: $bold;
+
+  opacity: 0.5;
+
+  &--featured {
+    opacity: 1;
+  }
+}
+
+.toggle {
+  background-color: $blue-400;
+}

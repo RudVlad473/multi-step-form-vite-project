@@ -1,0 +1,76 @@
+@use "../../stylesheets/abstracts/" as *;
+@use "../../components/Stepper/Stepper.module.scss" as s;
+
+$base-padding: s.$padding * 1.5;
+
+.base-record {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-form {
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: s.$padding;
+
+  background-color: $gray-200;
+
+  padding: $base-padding;
+  border-radius: s.$border-radius;
+}
+
+.header {
+  @extend .base-record;
+
+  font-weight: $bolder;
+}
+
+.price {
+  &--100 {
+    font-weight: normal;
+    font-size: 0.9rem;
+  }
+
+  &--200 {
+    font-weight: $bolder;
+  }
+
+  &--300 {
+    font-weight: $bolder;
+    color: $blue-300;
+    font-size: 1.25rem;
+  }
+}
+
+.footer {
+  @extend .base-record;
+
+  padding: $base-padding;
+}
+
+.change-link {
+  transition: all 0.1s ease-in;
+
+  text-decoration: underline;
+
+  font-weight: $normal;
+
+  &:hover {
+    color: $blue-300;
+  }
+}
+
+.plan {
+  display: flex;
+  flex-direction: column;
+  gap: s.$padding * 0.25;
+}
+
+.hr {
+  border: none;
+  border-top: 1px solid $gray-300;
+}

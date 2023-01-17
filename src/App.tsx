@@ -1,11 +1,15 @@
-import React from "react"
-import { useReducer } from "react"
+import React, { useReducer, useState } from "react"
 import styles from "./App.module.scss"
-import StepOneForm from "./components/forms/StepOneForm/StepOneForm"
 import { StepForm } from "./components/StepForm/StepForm"
 import Stepper from "./components/Stepper/Stepper"
 import { MainFormContext } from "./context/MainFormContext"
-import { currentStepReducer, StepDescription } from "./reducers/currentStep"
+import Final from "./pages/Final/Final"
+import StepOneForm from "./pages/StepOneForm/StepOneForm"
+import {
+  CurrentStep,
+  currentStepReducer,
+  StepDescription,
+} from "./reducers/currentStep"
 import { formsDataReducer } from "./reducers/formsData"
 import {
   IStepOneForm,
@@ -20,74 +24,100 @@ import {
   stepTwoFormInitialState,
 } from "./schemas/stepTwoFormSchema"
 const StepThreeForm = React.lazy(
-  () => import("./components/forms/StepThreeForm/StepThreeForm")
+  () => import("./pages/StepThreeForm/StepThreeForm")
 )
-const StepTwoForm = React.lazy(
-  () => import("./components/forms/StepTwoForm/StepTwoForm")
+const StepTwoForm = React.lazy(() => import("./pages/StepTwoForm/StepTwoForm"))
+const StepFourForm = React.lazy(
+  () => import("./pages/StepFourForm/StepFourForm")
 )
 
-export type StepsTypes = IStepOneForm | IStepTwoForm | IStepThreeForm
+export type StepsTypes = IStepOneForm & IStepTwoForm & IStepThreeForm
 
-export type FormsData = [
-  { step1: IStepOneForm; stepDescr: StepDescription },
-  { step2: IStepTwoForm; stepDescr: StepDescription },
-  { step3: IStepThreeForm; stepDescr: StepDescription }
+export type FormsData = StepsTypes & {
+  isYearly: boolean
+}
+
+const initialSteps: StepsTypes = {
+  ...stepOneFormInitialState,
+  ...stepTwoFormInitialState,
+  ...stepThreeFormInitialState,
+}
+
+const stepsDescrs: StepDescription[] = [
+  {
+    header: "Personal info",
+    descr: "Please provide your name, email address, and phone number.",
+  },
+  {
+    header: "Select your plan",
+    descr: "You have the option of monthly or yearly billing.",
+  },
+  {
+    header: "Pick add-ons",
+    descr: "Add-ons help enhance your gaming experience.",
+  },
+  {
+    header: "Finishing up",
+    descr: "Double-check everything looks OK before confirming.",
+  },
 ]
 
-const steps: FormsData = [
-  {
-    stepDescr: {
-      header: "Personal info",
-      descr: "Please provide your name, email address, and phone number.",
-    },
-    step1: stepOneFormInitialState,
-  },
-  {
-    stepDescr: {
-      header: "Select your plan",
-      descr: "You have the option of monthly or yearly billing.",
-    },
-    step2: stepTwoFormInitialState,
-  },
-  {
-    stepDescr: {
-      header: "Pick add-ons",
-      descr: "Add-ons help enhance your gaming experience.",
-    },
-    step3: stepThreeFormInitialState,
-  },
-]
+const initialState = {
+  ...initialSteps,
+  isYearly: false,
+}
+
+export const stepsCount = stepsDescrs.length
 
 const stepForms = [
-  <StepOneForm {...steps[0].step1} />,
+  <StepOneForm />,
   <React.Suspense>
-    <StepTwoForm {...steps[1].step2} />
+    <StepTwoForm />
   </React.Suspense>,
   <React.Suspense>
-    <StepThreeForm {...steps[2].step3} />
+    <StepThreeForm />
   </React.Suspense>,
+  <React.Suspense>
+    <StepFourForm />
+  </React.Suspense>,
+  <Final />,
 ]
 
-export const stepsCount = steps.length
+export interface FormError {
+  step: CurrentStep
+  message?: string
+}
 
 const App = () => {
-  const [formsData, dispatchFormsData] = useReducer(formsDataReducer, steps)
+  const [formsData, dispatchFormsData] = useReducer(
+    formsDataReducer,
+    initialState
+  )
 
   const [currentStep, dispatchCurrentStep] = useReducer(currentStepReducer, {
     stepIndex: 0,
     stepPhase: "FIRST",
   })
 
-  const { stepDescr } = steps[currentStep.stepIndex]
+  const [error, setError] = useState<FormError | undefined>(undefined)
 
   return (
     <MainFormContext.Provider
-      value={{ currentStep, dispatchCurrentStep, dispatchFormsData }}>
+      value={{
+        formsData,
+        dispatchFormsData,
+
+        currentStep,
+        dispatchCurrentStep,
+
+        error,
+        setError,
+      }}>
       <main className={styles["main-form"]}>
-        <Stepper stepsDescrs={steps.map((step) => step.stepDescr)} />
-        <StepForm header={stepDescr.header} descr={stepDescr.descr}>
+        <Stepper stepsDescrs={stepsDescrs} />
+        { <StepForm {...stepsDescrs[currentStep.stepIndex]}>
           {stepForms[currentStep.stepIndex]}
-        </StepForm>
+        </StepForm>}
       </main>
     </MainFormContext.Provider>
   )

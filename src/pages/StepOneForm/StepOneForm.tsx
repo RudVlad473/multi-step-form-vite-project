@@ -1,22 +1,20 @@
-import { Formik, useField } from "formik"
-import React, { FC, useContext, useRef } from "react"
-import { MainFormContext } from "../../../context/MainFormContext"
-import { useFocus } from "../../../hooks/useFocus"
-import {
-  IStepOneForm,
-  stepOneFormSchema,
-} from "../../../schemas/stepOneFormSchema"
-import InputWithLabel from "../../ui/InputWithLabel/InputWithLabel"
+import { Formik } from "formik"
+import React, { FC, useContext } from "react"
+import InputWithLabel from "../../components/ui/InputWithLabel/InputWithLabel"
+import { MainFormContext } from "../../context/MainFormContext"
+import { useFocus } from "../../hooks/useFocus"
+import { stepOneFormInitialState, stepOneFormSchema } from "../../schemas/stepOneFormSchema"
+
 import styles from "./StepOneForm.module.scss"
 
-const StepOneForm: FC<IStepOneForm> = (props) => {
-  const { dispatchFormsData } = useContext(MainFormContext)
+const StepOneForm: FC = () => {
+  const { formsData, dispatchFormsData } = useContext(MainFormContext)
 
   const nameInputRef = useFocus()
 
   return (
     <Formik
-      initialValues={{ ...props }}
+      initialValues={{ ...stepOneFormInitialState, ...formsData }}
       onSubmit={(values, actions) => {}}
       validationSchema={stepOneFormSchema}>
       {(formProps) => (
@@ -26,7 +24,6 @@ const StepOneForm: FC<IStepOneForm> = (props) => {
             label="Name"
             name="name"
             placeholder="e.g. Stephen King"
-            //error={formProps.errors.name as string}
             ref={nameInputRef as React.RefObject<HTMLInputElement>}
           />
           <InputWithLabel
@@ -34,16 +31,12 @@ const StepOneForm: FC<IStepOneForm> = (props) => {
             label="Email Address"
             name="email"
             placeholder="e.g. stephenking@lorem.com"
-
-            //error={formProps.errors.email as string}
           />
           <InputWithLabel
             type="text"
             label="Phone Number"
             name="phoneNumber"
             placeholder="e.g. +1 234 567 890"
-
-            //error={formProps.errors.phoneNumber as string}
           />
         </form>
       )}

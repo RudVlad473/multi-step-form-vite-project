@@ -1,12 +1,6 @@
+import classNames from "classnames"
 import { useField } from "formik"
-import {
-  forwardRef,
-  HTMLProps,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
+import { forwardRef, HTMLProps, useContext, useState } from "react"
 import { StepsTypes } from "../../../App"
 import { MainFormContext } from "../../../context/MainFormContext"
 import { updateFormsData } from "../../../reducers/formsData"
@@ -21,10 +15,12 @@ const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
     const [{ onBlur, ...field }, { error, touched }] = useField(
       props.name as string
     )
+
     const [isFocused, setIsFocused] = useState(false)
     const isError = error !== "" && error && touched && !isFocused
 
-    const { dispatchFormsData } = useContext(MainFormContext)
+    const { currentStep, dispatchFormsData, setError } =
+      useContext(MainFormContext)
 
     return (
       <div className={styles["wrapper"]}>
@@ -46,15 +42,26 @@ const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
           }}
           onBlur={(e) => {
             onBlur(e)
+
+            ///if (!error) {
             dispatchFormsData(
               updateFormsData({
                 [props.name as string]: field.value,
               } as StepsTypes)
             )
+            //}
             setIsFocused(false)
+            // if (isError) {
+            //   setError({
+            //     step: currentStep,
+            //     message: `There is error in ${props.name} field`,
+            //   })
+            // }
           }}
           ref={ref}
-          className={`${styles["input"]} ${isError && styles["input--error"]}`}
+          className={classNames(styles["input"], {
+            [styles["input--error"]]: isError,
+          })}
         />
       </div>
     )

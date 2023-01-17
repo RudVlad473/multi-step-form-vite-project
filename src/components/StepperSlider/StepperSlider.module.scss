@@ -1,0 +1,77 @@
+@use "../../stylesheets/abstracts/" as *;
+@use "../Stepper/Stepper.module.scss" as s;
+
+.footer {
+  grid-area: nav;
+
+  display: grid;
+  grid-template-areas: "first-btn second-btn";
+}
+
+.nav-btn {
+  font-weight: $bolder;
+
+  padding: 1em 1.25em;
+
+  width: fit-content;
+
+  border: none;
+  border-radius: s.$border-radius * 0.5;
+
+  min-width: 7.25em;
+  //max-width: 7.25em;
+
+  color: $gray-200;
+
+  transition: all 0.1s ease-in;
+
+  &:disabled {
+    opacity: 0.75;
+  }
+}
+
+.prev-btn {
+  grid-area: first-btn;
+
+  @extend .nav-btn;
+
+  justify-self: start;
+
+  background-color: $white;
+
+  color: $gray-400;
+
+  &:hover {
+    color: $blue-400;
+  }
+}
+
+.next-btn {
+  grid-area: second-btn;
+
+  @extend .nav-btn;
+
+  justify-self: end;
+
+  background-color: $blue-400;
+
+  color: $gray-300;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+.confirm-btn {
+  @extend .nav-btn;
+
+  justify-self: end;
+
+  background-color: $blue-300;
+
+  border-radius: s.$border-radius * 0.5;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}

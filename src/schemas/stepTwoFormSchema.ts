@@ -1,17 +1,15 @@
+import { plans } from "../pages/StepTwoForm/StepTwoForm"
+
 export interface IPlan {
   name: string
   monthlyFee: number
+  imgSrc: string
 }
 
 export interface IStepTwoForm {
-  selectedPlan: IPlan
+  selectedPlan: IPlan["name"]
 }
 
 export const stepTwoFormInitialState: IStepTwoForm = {
-  selectedPlan: {
-    name: "",
-    monthlyFee: 0,
-  },
+  selectedPlan: plans[0].name,
 }
-
-//export { stepTwoFormSchema }
