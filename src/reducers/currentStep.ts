@@ -23,8 +23,7 @@ function currentStepReducer(
   { stepIndex }: CurrentStep,
   { type, payload: stepTo }: CurrentStepAction
 ): CurrentStep {
-  const stepPhase = getCurrentStepPhase( {stepIndex},
-     {type, payload} )
+  const stepPhase = getCurrentStepPhase(stepIndex, { type, payload: stepTo })
 
   switch (type) {
     case "NEXT": {

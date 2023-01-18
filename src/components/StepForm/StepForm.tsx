@@ -17,10 +17,12 @@ const StepForm: FC<StepFormProps> = ({
 }: StepFormProps) => {
   return (
     <section className={styles["step-form"]}>
-      <header className={styles["header-wrapper"]}>
-        <h1 className={styles["header"]}>{header}</h1>
-        <h2 className={styles["subheader"]}>{descr}</h2>
-      </header>
+      {!!header && (
+        <header className={styles["header-wrapper"]}>
+          <h1 className={styles["header"]}>{header}</h1>
+          <h2 className={styles["subheader"]}>{descr}</h2>
+        </header>
+      )}
       <div className={styles["form"]}>{form}</div>
       <StepperSlider />
     </section>

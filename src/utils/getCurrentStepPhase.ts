@@ -1,32 +1,72 @@
-import { StepPhase } from "./../components/StepForm/StepForm"
 import { stepsCount } from "./../App"
-import { CurrentStep, CurrentStepAction, currentStepReducer } from "./../reducers/currentStep"
-
+import { StepPhase } from "./../components/StepForm/StepForm"
+import { CurrentStep, CurrentStepAction } from "./../reducers/currentStep"
 
 function getCurrentStepPhase(
-  { stepIndex }: CurrentStep,
+  stepIndex: CurrentStep["stepIndex"],
   { type, payload: stepTo }: CurrentStepAction
 ): StepPhase {
+  let newStepPhase: StepPhase
+
   switch (type) {
     case "NEXT": {
-      const newStepPhase: StepPhase =
-        stepIndex === stepsCount - 2 ? "LAST" : "IN_BETWEEN"
-      return newStepPhase
+      switch (stepIndex) {
+        case stepsCount - 3: {
+          newStepPhase = "LAST"
+          break
+        }
+        case stepsCount - 2: {
+          newStepPhase = "FINAL"
+          break
+        }
+        default: {
+          newStepPhase = "IN_BETWEEN"
+          break
+        }
+      }
+      break
     }
     case "PREV": {
-      const newStepPhase: StepPhase = stepIndex === 1 ? "FIRST" : "IN_BETWEEN"
-      return newStepPhase
+      switch (stepIndex) {
+        case 1: {
+          newStepPhase = "FIRST"
+          break
+        }
+        case stepsCount - 1: {
+          newStepPhase = "LAST"
+          break
+        }
+        default: {
+          newStepPhase = "IN_BETWEEN"
+          break
+        }
+      }
+      break
     }
     case "MOVE_TO": {
-      const newStepPhase: StepPhase =
-        stepTo === 0
-          ? "FIRST"
-          : stepTo === stepsCount - 1
-          ? "LAST"
-          : "IN_BETWEEN"
-      return newStepPhase
+      switch (stepTo) {
+        case 0: {
+          newStepPhase = "FIRST"
+          break
+        }
+        case stepsCount - 2: {
+          newStepPhase = "LAST"
+          break
+        }
+        case stepsCount - 1: {
+          newStepPhase = "FINAL"
+          break
+        }
+        default: {
+          newStepPhase = "IN_BETWEEN"
+          break
+        }
+      }
+      break
     }
   }
+
+  return newStepPhase
 }
 
 export { getCurrentStepPhase }

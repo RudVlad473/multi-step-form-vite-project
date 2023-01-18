@@ -12,6 +12,7 @@
   grid-template-rows: max-content auto max-content;
   gap: s.$padding * 3;
   
+  //align-items: center;
 
   padding: 2em 6em;
 }
@@ -35,4 +36,6 @@
 
 .form {
   grid-area: form;
+
+  display: flex;
 }

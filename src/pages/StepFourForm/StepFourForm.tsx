@@ -52,7 +52,7 @@ const StepFourForm: FC = () => {
         <hr className={styles["hr"]} />
 
         {summaryAddons.map(({ name, monthlyFee }) => (
-          <div className={styles["base-record"]}>
+          <div key={name} className={styles["base-record"]}>
             <h2 className={classNames(styles[""], "muted-text")}>{name}</h2>
             <aside className={styles["price--100"]}>
               {`+${getFee(monthlyFee, isYearly)}`}

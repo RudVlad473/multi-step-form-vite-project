@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react"
+import React, { useEffect, useReducer, useState } from "react"
 import styles from "./App.module.scss"
 import { StepForm } from "./components/StepForm/StepForm"
 import Stepper from "./components/Stepper/Stepper"
@@ -48,14 +48,17 @@ const stepsDescrs: StepDescription[] = [
     header: "Personal info",
     descr: "Please provide your name, email address, and phone number.",
   },
+
   {
     header: "Select your plan",
     descr: "You have the option of monthly or yearly billing.",
   },
+
   {
     header: "Pick add-ons",
     descr: "Add-ons help enhance your gaming experience.",
   },
+
   {
     header: "Finishing up",
     descr: "Double-check everything looks OK before confirming.",
@@ -67,21 +70,25 @@ const initialState = {
   isYearly: false,
 }
 
-export const stepsCount = stepsDescrs.length
-
 const stepForms = [
   <StepOneForm />,
+
   <React.Suspense>
     <StepTwoForm />
   </React.Suspense>,
+
   <React.Suspense>
     <StepThreeForm />
   </React.Suspense>,
+
   <React.Suspense>
     <StepFourForm />
   </React.Suspense>,
+
   <Final />,
 ]
+
+export const stepsCount = stepForms.length
 
 export interface FormError {
   step: CurrentStep
@@ -115,9 +122,10 @@ const App = () => {
       }}>
       <main className={styles["main-form"]}>
         <Stepper stepsDescrs={stepsDescrs} />
-        { <StepForm {...stepsDescrs[currentStep.stepIndex]}>
+
+        <StepForm {...stepsDescrs[currentStep.stepIndex]}>
           {stepForms[currentStep.stepIndex]}
-        </StepForm>}
+        </StepForm>
       </main>
     </MainFormContext.Provider>
   )

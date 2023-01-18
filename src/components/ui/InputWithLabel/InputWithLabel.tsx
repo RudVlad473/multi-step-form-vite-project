@@ -3,6 +3,7 @@ import { useField } from "formik"
 import { forwardRef, HTMLProps, useContext, useState } from "react"
 import { StepsTypes } from "../../../App"
 import { MainFormContext } from "../../../context/MainFormContext"
+import { useDelayedError } from "../../../hooks/useDelayedError"
 import { updateFormsData } from "../../../reducers/formsData"
 import styles from "./InputWithLabel.module.scss"
 
@@ -19,6 +20,8 @@ const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
     const [isFocused, setIsFocused] = useState(false)
     const isError = error !== "" && error && touched && !isFocused
 
+    const [shouldShowError] = useDelayedError(!!isError, 1500)
+
     const { currentStep, dispatchFormsData, setError } =
       useContext(MainFormContext)
 
@@ -27,9 +30,9 @@ const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
         <label htmlFor={props.id} className={styles["label"]}>
           {label}
         </label>
-        {isError && (
+        {shouldShowError && (
           <span
-            className={`${styles["error-msg"]} ellipsis-overflow`}
+            className={classNames(styles["error-msg"], "ellipsis-overflow")}
             title={error}>
             {error}
           </span>
@@ -60,7 +63,7 @@ const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
           }}
           ref={ref}
           className={classNames(styles["input"], {
-            [styles["input--error"]]: isError,
+            [styles["input--error"]]: shouldShowError,
           })}
         />
       </div>

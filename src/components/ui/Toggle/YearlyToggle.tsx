@@ -26,7 +26,7 @@ const YearlyToggle: FC<{
       </span>
       <Toggle
         className={styles["toggle"]}
-        defaultChecked={isYearly}
+        //defaultChecked={isYearly}
         icons={false}
         checked={isYearly}
         onChange={({ target }) => {
