@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useState } from "react"
 import styles from "./App.module.scss"
 import { StepForm } from "./components/StepForm/StepForm"
 import Stepper from "./components/Stepper/Stepper"
+import StepperSlider from "./components/StepperSlider/StepperSlider"
 import { MainFormContext } from "./context/MainFormContext"
 import Final from "./pages/Final/Final"
 import StepOneForm from "./pages/StepOneForm/StepOneForm"
@@ -126,6 +127,8 @@ const App = () => {
         <StepForm {...stepsDescrs[currentStep.stepIndex]}>
           {stepForms[currentStep.stepIndex]}
         </StepForm>
+
+        
       </main>
     </MainFormContext.Provider>
   )

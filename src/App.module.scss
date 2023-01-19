@@ -22,3 +22,15 @@
 
   padding: s.$padding;
 }
+
+
+
+@media (max-width: $large) {
+  .main-form {
+    grid-template-areas:
+      "stepper"
+      "step-form";
+    grid-template-columns: auto;
+    justify-items: center;
+  }
+}

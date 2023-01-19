@@ -1,6 +1,8 @@
 @use "../../stylesheets/abstracts/" as *;
 @use "../Stepper/Stepper.module.scss" as s;
 
+$base-padding: 2em;
+
 .step-form {
   grid-area: step-form;
 
@@ -11,10 +13,12 @@
     "nav";
   grid-template-rows: max-content auto max-content;
   gap: s.$padding * 3;
-  
+
   //align-items: center;
 
-  padding: 2em 6em;
+  padding: $base-padding $base-padding * 3;
+
+  
 }
 
 .header {
@@ -39,3 +43,15 @@
 
   display: grid;
 }
+
+@media (max-width: $large) {
+  .header {
+    display: initial;
+  }
+  
+  .subheader {
+    display: initial;
+  }
+}
+
+
