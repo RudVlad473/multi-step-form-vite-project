@@ -6,6 +6,8 @@ A multi-step form page where user can:
 3. See validation of inputs
 4. Finish form
 
+# [See project in action](https://multi-step-form-vite-project.vercel.app/)
+
 # Technologies
 
 - **React**
